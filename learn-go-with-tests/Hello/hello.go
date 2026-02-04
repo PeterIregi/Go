@@ -5,7 +5,9 @@ import (
 )
 
 func Hello(s string) string {
-	return "Hello, " + s
+	//defining a constant
+	const englishHelloPrefix = "Hello, "
+	return englishHelloPrefix + s
 }
 
 func main() {
