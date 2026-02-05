@@ -1,32 +1,35 @@
 package main
- 
-import(
+
+import (
 	"testing"
-	
 )
 
-//Today we will try and see how errors works in go
-func TestDivide(t *testing.T){
+// Today we will try and see how errors works in go
+func TestDivide(t *testing.T) {
 	result, err := Divide(10, 2)
-//displays the error we got if any
-	if err != nil{
+	//displays the error we got if any
+	if err != nil {
 		t.Fatalf("did not expect an error, got %v", err)
 	}
-	if result != 5{
+	if result != 5 {
 		t.Errorf("expexted 5, Got %d", result)
 	}
 }
-func TestDivideByZero(t *testing.T){
+func TestDivideByZero(t *testing.T) {
 	_, err := Divide(10, 0)
 	//expects an error and displays message if none is thrown
-	if err == nil{
-		t.Fatalf("expected an error, but got nil")
+	if err != ErrDivideByZero {
+		t.Errorf("expected ErrDivideByZero, but got %v", err)
 	}
 
 }
+
 //should fail because we have not made the divide function lets see then create the functio
 //it fails cause divide is undefinedlest make it
 //was starting to get worried
 //lets test for diividing by zero
 //lets test it
-//we will learn how to deal with this one later 
+//we will learn how to deal with this one later
+//this is where we left off lests see where it takes us when we run the test
+//it still passes
+//we tackle something else thankyou for walking with me through this it was a bit long but bare with me
