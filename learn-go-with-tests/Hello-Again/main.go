@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 )
 
 func Hello(name, language string) string {
@@ -25,5 +26,18 @@ func Hello(name, language string) string {
 }
 
 func main() {
-	fmt.Println(Hello("", ""))
+	http.HandleFunc("/", helloHandler)
+
+	fmt.Println("Server running on http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
+
+	//fmt.Println(Hello("", ""))
+}
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
+	language := r.URL.Query().Get("language")
+
+	message := Hello(name, language)
+
+	fmt.Fprintln(w, message)
 }
