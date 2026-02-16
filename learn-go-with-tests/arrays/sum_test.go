@@ -31,8 +31,6 @@ func TestSum(t *testing.T){
 	})
 	
 }
-//lets continue where we left off
-//lets test a function sumAll that adds a varryoing number of slices and produces the sum of each slice in the form of a slice
 func TestSumAll(t *testing.T){
 	got := SumAll([]int{1, 2}, []int{0, 9})
 	want := []int{3, 9}
@@ -41,8 +39,32 @@ func TestSumAll(t *testing.T){
 		t.Errorf("got %v want %v", got, want)
 	}
 }
-//the test should fail because we don't have a sum all function
+
+func TestSumAllTails(t *testing.T){
+	t.Run("make sum of some slices", func (t *testing.T){
+		got := SumAllTails([]int{1,2}, []int{0,9})
+		want := []int {2, 9}
+
+		if !reflect.DeepEqual(got ,want) {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	t.Run("safely sum empty slices", func (t *testing.T){
+		got := SumAllTails([]int{}, []int{3,4,5})
+		want := []int {0,9}
+
+		if !reflect.DeepEqual(got ,want) {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	
+}
+//lets continue with arrays and slices 
+//today we will build a function that sums all the numbers in a 
+//slice except for the first
+//first we build the test for it 
+//test should fail we have no such function available
 //lets make it
-//now it says we have no return in our function
-//lets fix that
-// see you next time
+//lets see what the error will be
+// the value for [1:]in the empty slice is out of range since the slice is empty
+//lets fix our code so that it can accomodate such situations
