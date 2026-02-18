@@ -7,34 +7,41 @@ import(
 
 
 func TestPerimeter(t *testing.T){
-	//lets try to find the perimeter of a rectangle
-	//lets use our struct now
 	rectangle := Rectangle{10.0, 10.0}
-	//and pass it here as our variable
 	got := Perimeter(rectangle)
 	want := 40.0
-	//we are using decimal points instesd of normal numbers because these are not intergers they 
-	//are what we call floats thus the decimal
 
 	if got != want{
-		t.Errorf("got %.2f want %.2f", got, want)
-		//we are using %.2f so that it gives us the float value but cuts it off at two decimal places
-
-	}
-}//lets see if our test fails as it should 
-//lets make the function for the test now
-// lets try to find the area of a rectangle
-func TestArea(t *testing.T){
-	rectangle := Rectangle{12.0, 6.0}
-	got := Area(rectangle)
-	want:=72.0
-
-	if got != want {
 		t.Errorf("got %.2f want %.2f", got, want)
 	}
 }
 
-//this will test our uncreated function lets see if ti fails coz of that
-//lets fix that 
+func TestArea(t *testing.T){
+	t.Run("rectangles", func (t *testing.T){
+		rectangle := Rectangle{12.0, 6.0}
+		got := rectangle.Area()
+		want:=72.0
 
-//lets change the functions so they take rectangle as an argument
+		if got != want {
+			t.Errorf("got %.2f want %.2f", got, want)
+		}
+	})
+	t.Run("circles", func (t *testing.T){
+		circle := Circle{10}
+		got := circle.Area()
+		want := 314.1592653589793
+
+		if got != want {
+			t.Errorf("got %g want %g ", got, want)
+		}
+	})
+		
+	
+}
+//lets continue
+//we want to build a function that finds the area of a circle
+//should fail coz of some obvious reasons
+//circle is undefined and cannot be passed to our function
+//lets try and fix that
+//now it should fail because we have no method in both rectangle and circle called Area
+//lets see

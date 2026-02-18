@@ -1,10 +1,23 @@
 package structs_and_methods
 
+import(
+	"math"
+)
 
 //this is the syntax for declaring structs
 type Rectangle struct {
 	Width float64
 	Height float64
+}
+func (r Rectangle)Area()float64{
+	return r.Width * r.Height
+}
+
+type Circle struct{
+	Radius float64
+}
+func (c Circle) Area()float64{
+	return math.Pi * c.Radius *c.Radius
 }
 
 func Perimeter(rectangle Rectangle) float64{
@@ -14,16 +27,18 @@ func Perimeter(rectangle Rectangle) float64{
 
 }
 
-func Area(rectangle Rectangle) float64{
-	return rectangle.Width * rectangle.Height
-}
-//should pass now
-//what if we wanted to find the area of a rectangle only and didn't want any 
-//other shape
-// we could rename the function to AreaOfRectangle 
-
-//or we could create a struct called rectangle and pass it to our function
-//lets try that
-//lets change the test first
-//it should pass as it did before
-//small doses enough for today
+//we also stopped using  the .2f in the error state ment coz g //offers the decimal 
+//to the precise decimal as compared to the f and in this case preciseness is what we are after
+//lets see now
+//we still cannot pass circle as aruments in our function
+//the test will fail but for other reasons 
+//we also cannot re declare this function
+//but we can declare it as a method in our structs lets change the test first
+//lets make the necessary changes
+//now it should fail because of the out put 
+//now lets fix the out put 
+//for us to find the area of a circle we need to borrow pi 
+//from the math package 
+//hence we need to import it to use the pi constant
+//it should work now
+//thats all for today
