@@ -16,29 +16,40 @@ func TestPerimeter(t *testing.T){
 }
 
 func TestArea(t *testing.T){
+//lets make a slice of struct to hold our test cases
 
-	checkArea := func(t *testing.T, shape Shape, want float64){
-		t.Helper()
-		got := shape.Area()
-		if got != want {
-			t.Errorf("got %g want %g", got, want)
-		}
+	areaTests := []struct{
+		name string
+		shape Shape
+		want float64
+	}{
+		//inside we will put our shapes
+		{name: "Rectangle", shape: Rectangle{Width: 12, Height: 6}, want: 72.0},
+		{name: "Circle", shape: Circle{Radius: 10}, want: 314.1592653589793},
+		{name: "Triangle", shape: Triangle{Base: 12, Height: 6}, want: 36.0},
 	}
-	t.Run("rectangles", func (t *testing.T){
-		rectangle := Rectangle{12.0, 6.0}
-		checkArea(t, rectangle, 72.0)
+	//now lets loop through our slice of structs and run the tests
+	//lets add a name and some descriptions to our items
 
-		
-	})
-	t.Run("circles", func (t *testing.T){
-		circle := Circle{10}
-		checkArea(t, circle, 314.1592653589793)
-
-	})
-		
+	for _, tt := range areaTests {
+		//this is a different kind of for loop here we are offered the index and the item 
+		//at the position we are at in the item we are looping through
+		//but since we have no use for the index we will put the underscore
+		//in Go we nothig is left unsused
+		//first off fo more clarity and so that we can use t.Run 
+		//lets make changes to our struct above //lets see the changes
+		t.Run(tt.name, func (t *testing.T){
+			got:=tt.shape.Area()
+			if got != tt.want{
+				t.Errorf("%#v got %g want %g", tt.shape, got, tt.want)
+			}
+		})
+	}
 	
 }
-//since there is some repeating code here lets try to reduce that
-//lets see what ur error will be
-//it says shape is undefined lets define it then
-//we will do more with structs methods and interfaces later including incoporating them in our tests later
+
+//lets try to improve our tests with the knowledge we have gained so far on structs
+//lets see if our tests run now
+//before we leave lets add another shape triangle and see how that works out
+//lets make the changes in the shapes.go file
+//that was it for this series I hope ypu learned as much as I did
