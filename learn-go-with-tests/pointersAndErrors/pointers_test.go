@@ -1,4 +1,3 @@
-//lets learn something new  or old since we have been using it from the beginning
 package pointersAndErrors
 
 import(
@@ -6,17 +5,35 @@ import(
 )
 
 func TestWallet(t *testing.T){
-	wallet :=Wallet{}
 
-	wallet.Deposit(10)
+	t.Run("deposit", func (t *testing.T){
+		wallet :=Wallet{}
 
-	got := wallet.Balance()
-	want := 10
+		wallet.Deposit(Bitcoin(10))
 
-	if got  != want{
-		t.Errorf("got %d want %d", got, want)
-	}
+		got := wallet.Balance()
+		want := Bitcoin(10)
+
+		if got  != want{
+			t.Errorf("got %s want %s", got, want)
+		}
+	})
+
+	t.Run("withdraw", func(t *testing.T){
+		wallet := Wallet{balance: Bitcoin(20)}
+
+		wallet.Withdraw(Bitcoin(10))
+
+		got := wallet.Balance()
+
+		want := Bitcoin(10)
+
+		if got != want {
+			t.Errorf("got %s want %s", got, want)
+		}
+	})
 }
-//here we want a program that helps us add some coins to ou wallet and check the balance
-//lets first run the test and let the compiler tell us what we need before we continue
-// lets go define our functions or methods or structs
+
+	
+//lets see what the compiler says could be the issue 
+//withdraw is not a method in our program

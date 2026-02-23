@@ -1,28 +1,38 @@
 package pointersAndErrors
 
+import(
+	"fmt"
+)
+
+type Bitcoin int
+//in Go we can create a type from an existing type 
+//now we will use  stringer  so that we can  manipulate how it 
+//displays when we print it out in format strings and use  %s
+func (b Bitcoin) String()string{
+	return fmt.Sprintf("%d BTC", b)
+	//we have to import the fmt package in order to use fmt.
+	//now lets modify our tests so that it prints out what we want
+}
 
 type Wallet struct{
-	balance int
+	balance Bitcoin
 }
-func (w *Wallet) Deposit(amount int){
+func (w *Wallet) Deposit(amount Bitcoin){
 	w.balance+= amount
 }
-func (w *Wallet) Balance()int{
+func (w *Wallet) Balance()Bitcoin{
 	return w.balance
 }
-//lets run it now
-//we need to add methods to it 
-//now it fails because we have not met the terms stated in the test lets try to meet them
-//lets try it now
-//it still fails we will learn more on why later
-//we left it off here  
-// why does it say got 0 instead of 10
-//that is because as of now out w.balance refers to a copy of the w.balance hence the one in our function is still 0
-//to change that lets do some modifications to our code
-//lets see if if it passes now
+func (w *Wallet) Withdraw(amount Bitcoin){
+	w.balance-= amount
+}
 
-// *Wallet is a pointer to the walletwe created so when we chage w. balance the balance now changes since it 
-//is not creating a copy of the w.balance but pointing to the w.balane 
-//this looks familiar we have been using it since the beginning in all our tests as *testing.T
-//slowly things are starting to get pieced together the pieces are all starting to fall into place
-//we will continue later 
+//now lets see if our wallet could contain bitcoins 
+//since we are currently just using int
+//lets make the test fail so we see if it prints out what we want
+//stringer works
+//what we wanted to withdraw
+//lets make some test for that 
+//lets write enough code so that it compiles
+//lets see if it passes
+//later we deal with a situationwhere the withdrawn amount is larger than the balance 
