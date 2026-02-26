@@ -14,10 +14,15 @@ func TestWallet(t *testing.T){
 		}
 	}
 
-	assertError := func(t testing.TB, err error){
+	assertError := func(t testing.TB, got error, want string){
 		t.Helper()
-		if err == nil {
+		if got == nil {
 			t.Error("Wanted an error but didn't get one")
+		}
+		if got.Error()!= want {
+			//Error() hepls us conver the error to a string so that we can compare it 
+			//to our want string
+			t.Errorf("got %q, want %q", got, want)
 		}
 	}
 
@@ -43,13 +48,11 @@ func TestWallet(t *testing.T){
 
 		assertBalance(t, wallet, startingBalance)
 
-		assertError(t, err)
+		assertError(t, err, "cannot withdraw, insufficient funds")
 	})
 }
-//lets see how we would deal with the case where we want to withdraw more than waht is in our balance 
-//it should give us an error message right lets try that 
-//lets see what the compiler says 
-//its says our withdraw method returns no value yet we are asking for an error
-//lets fix that
-//lets close it of at that 
-	
+//we can continue now 
+//lets make the error make abit more sense and not just be presented as an error
+//what will happen now
+//now our error message is supposed to be abit more discriptive lets change the cofde 
+//so it describes the error encountered
