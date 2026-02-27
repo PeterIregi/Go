@@ -14,15 +14,22 @@ func TestWallet(t *testing.T){
 		}
 	}
 
-	assertError := func(t testing.TB, got error, want string){
+	assertError := func(t testing.TB, got error, want error){
 		t.Helper()
 		if got == nil {
 			t.Error("Wanted an error but didn't get one")
 		}
-		if got.Error()!= want {
+		if got != want {
 			//Error() hepls us conver the error to a string so that we can compare it 
 			//to our want string
 			t.Errorf("got %q, want %q", got, want)
+		}
+	}
+
+	assertNoError := func (t testing.TB, got error){
+		t.Helper()
+		if got != nil {
+			t.Fatal("got an error but didn't want one")
 		}
 	}
 
@@ -37,8 +44,10 @@ func TestWallet(t *testing.T){
 
 	t.Run("withdraw", func(t *testing.T){
 		wallet :=Wallet{balance:Bitcoin(20)}
-		wallet.Withdraw(Bitcoin(10))
+		err:= wallet.Withdraw(Bitcoin(10))
 		assertBalance(t, wallet, Bitcoin(10))
+		//now in our succeffull withdraw we can assert that there was no error thrown
+		assertNoError(t, err)
 	})
 
 	t.Run("Withdraw insufficient funds", func(t *testing.T){
@@ -48,11 +57,15 @@ func TestWallet(t *testing.T){
 
 		assertBalance(t, wallet, startingBalance)
 
-		assertError(t, err, "cannot withdraw, insufficient funds")
+		assertError(t, err, ErrInsufficientFunds)
 	})
 }
-//we can continue now 
-//lets make the error make abit more sense and not just be presented as an error
-//what will happen now
-//now our error message is supposed to be abit more discriptive lets change the cofde 
-//so it describes the error encountered
+//no error message form the compiler so we are all good
+//lets see if our test still passes
+//it says there is a type mismatch lets fix that in our test 
+//now all the types are matched 
+//but what if there should be no error we have't checked for that 
+//what if the withdraw was successful 
+//lets do that 
+//lets try to run it 
+//that wraps it up for the series now we move on to something else 
