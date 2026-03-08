@@ -23,8 +23,18 @@ func (d Dictionary)Search(word string) (string, error){
 }
 
 func (d Dictionary) Add(word, definition string) error{
-	d[word] = definition
+	_, err := d. Search(word)
+
+	switch err{
+	case ErrorNotFound:
+		d[word]=definition
+	case nil:
+		return ErrorWordExists
+	default:
+		return err
+	}
 	return nil
 }
 
 //we can do something so that we declare multiple values with on far statement
+//lets see now what the compiler tells us

@@ -36,13 +36,14 @@ func TestAdd(t *testing.T){
 		assertDefinition(t, dictionary, word, definition)
 	})
 	t.Run("existing word", func (t *testing.T){
-		dictionary := Dictionary{}
+		
 		word := "test"
 		definition := "this is just a test"
+		dictionary := Dictionary{word: definition}
+		err := dictionary.Add(word, "new test")
 
-		err := dictionary.Add(word, definition)
 
-		assertError(t, err, nil)
+		assertError(t, err, ErrorWordExists)
 		assertDefinition(t, dictionary, word, definition)
 	})
 	
@@ -80,3 +81,7 @@ func assertError(t testing.TB, got , want error){
 //lets try to test it first
 //lets satisfy what the compiler wants so that the test runs even if it fails
 //later we will find out why our test passed even when that was not our intention
+//when we left oy test wasa still passing even when it wasn't supposed to
+//lets fix the test
+//lets see what the compiler tells us
+//it says it got nil instead of the error message now lets fix the function
