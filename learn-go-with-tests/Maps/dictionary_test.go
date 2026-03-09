@@ -50,6 +50,32 @@ func TestAdd(t *testing.T){
 
 }
 
+func TestUpdate(t *testing.T){
+	t.Run("existing word", func(t *testing.T){
+		//this is for if the word is already existing in the map and we need to change the definition
+
+		word := "test"
+		definition := "this is just a test"
+		dictionary := Dictionary{word: definition}
+		newDefinition := "new definition"
+
+		dictionary.Update(word, newDefinition)
+
+		assertDefinition(t, dictionary, word, newDefinition)
+	})
+	t.Run("new word", func(t *testing.T){
+		word := "test"
+		definition := "this is just a test"
+		dictionary := Dictionary{}
+		//it needs to be empty for it to be a new word 
+
+		err := dictionary.Update(word, definition)
+
+		assertError(t, err, ErrWordDoesNotExist)
+	})
+	
+}
+
 func assertDefinition(t testing.TB, dictionary Dictionary, word, definition string){
 	t.Helper()
 
@@ -85,3 +111,7 @@ func assertError(t testing.TB, got , want error){
 //lets fix the test
 //lets see what the compiler tells us
 //it says it got nil instead of the error message now lets fix the function
+//we have no update method or function and so it should complain
+//lets go make a function for it 
+//there should be some complaints from the compiler
+//we will deal with this later
