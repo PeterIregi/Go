@@ -76,6 +76,28 @@ func TestUpdate(t *testing.T){
 	
 }
 
+func TestDelete(t *testing.T){
+
+	t.Run("existing word", func(t *testing.T){
+		word := "test"
+		dictionary := Dictionary{word: "test definition"}
+
+		dictionary.Delete(word)
+
+		_, err := dictionary.Search(word)
+		assertError(t, err, ErrorNotFound)
+	})
+	t.Run("non-existing word", func(t *testing.T){
+		word := "test"
+		dictionary := Dictionary{}
+
+		err := dictionary.Delete(word)
+
+		assertError(t, err, ErrWordDoesNotExist)
+	})
+	
+}
+
 func assertDefinition(t testing.TB, dictionary Dictionary, word, definition string){
 	t.Helper()
 
@@ -114,4 +136,6 @@ func assertError(t testing.TB, got , want error){
 //we have no update method or function and so it should complain
 //lets go make a function for it 
 //there should be some complaints from the compiler
-//we will deal with this later
+//let sdeal with it
+//the delete function is not defined
+//our delete function does not have areturn lets try to fix that
